@@ -1,4 +1,4 @@
-# use mklink + Developer mode on Windows10 can avoid admin elevate issue.
+# Developer mode on Windows10 can avoid admin elevate issue.
 
 Set-StrictMode -Version Latest
 
@@ -14,22 +14,6 @@ function AskConfirmation($message) {
 function Execute($command, $message) {
     Invoke-Expression -Command "$command" > $null
     PrintResult -success $? -message $message
-}
-
-function GetOs() {
-    $os = "windows"
-    if ($PSVersionTable.PSVersion.Major -ge 6) {
-        if ($PSVersionTable.OS -match "Darwin") {
-            $os = "osx"
-        }
-        elseif ($PSVersionTable.OS -match "Linux") {
-            $os = "linux"
-        }
-        else {
-            $os = "windows"
-        }
-    }
-    return $os
 }
 
 function PrintResult([bool]$success, $message) {
@@ -58,11 +42,17 @@ function ReadLink($path) {
     return (Get-Item -LiteralPath $path).Target
 }
 
+Set-Variable -Name BASE_PATH -Value $PSScriptRoot -Option Constant
+
+function MakeSymlinkPath($path) {
+    return $path.Replace("/home", "").Replace("\home", "").Replace($BASE_PATH, $env:UserProfile)
+}
+
 function main() {
-    $current = $(Get-Location).Path
+    $dotfiles_home = "$BASE_PATH\home"
 
     # dotfiles
-    Get-ChildItem -File -Filter ".*" -Force | Where-Object Name -notin @(".gitignore") |
+    Get-ChildItem -LiteralPath $dotfiles_home -File -Filter ".*" -Force |
     ForEach-Object {
         $sourceFile = $_.FullName
         $targetFile = "$env:UserProfile\$($_.name)"
@@ -71,7 +61,8 @@ function main() {
                 $answer = AskConfirmation -message "'$targetFile' already exists, do you want to overwrite it?"
                 if (AnswerIsYes -answer $answer) {
                     Remove-Item -LiteralPath "$targetFile" -Force > $null
-                    Execute -command "cmd.exe /c mklink '$targetFile' '$sourceFile'" -message "$targetFile → $sourceFile"
+                    New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
+                    PrintResult -success $? -message "$targetFile → $sourceFile"
                 }
                 else {
                     PrintError -message "$targetFile → $sourceFile"
@@ -82,23 +73,24 @@ function main() {
             }
         }
         else {
-            Execute -command "cmd.exe /c mklink '$targetFile' '$sourceFile'" -message "$targetFile → $sourceFile"
+            New-Item -ItemType SymbolicLink -Path $targetFile -Value $sourceFile > $null
+            PrintResult -success $? -message "$targetFile → $sourceFile"
         }
     }
 
     # home
-    Get-ChildItem -LiteralPath home -Directory -Force | 
+    Get-ChildItem -LiteralPath $dotfiles_home -Directory -Force | 
     ForEach-Object {
         $dir_root = $_.FullName
 
         # create folder tree
-        $targetFolder = $dir_root.Replace("/home", "").Replace("\home", "").Replace($current, $env:UserProfile)
+        $targetFolder = MakeSymlinkPath -path $dir_root
         if (!(Test-Path -LiteralPath "$targetFolder")) {
             mkdir -Path "$targetFolder" -Force > $null
         }
         Get-ChildItem -LiteralPath $dir_root -Directory -Recurse |
         ForEach-Object {
-            $targetFolder = $dir_root.Replace("/home", "").Replace("\home", "").Replace($current, $env:UserProfile)
+            $targetFolder = MakeSymlinkPath -path $dir_root
             if (!(Test-Path -LiteralPath "$targetFolder")) {
                 mkdir -Path "$targetFolder" -Force > $null
             }
@@ -108,13 +100,14 @@ function main() {
         Get-ChildItem -LiteralPath $dir_root -File -Force -Recurse |
         ForEach-Object {
             $sourceFile = $_.FullName
-            $targetFile = $sourceFile.Replace("/home", "").Replace("\home", "").Replace($current, $env:UserProfile)
+            $targetFile = MakeSymlinkPath -path $sourceFile
             if (Test-Path -Path $targetFile) {
                 if ((ReadLink -path "$targetFile") -ne $sourceFile) {
                     $answer = AskConfirmation -message "'$targetFile' already exists, do you want to overwrite it?"
                     if (AnswerIsYes -answer $answer) {
                         Remove-Item -LiteralPath "$targetFile" -Force > $null
-                        Execute -command "cmd.exe /c mklink '$targetFile' '$sourceFile'" -message "$targetFile → $sourceFile"
+                        New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
+                        PrintResult -success $? -message "$targetFile → $sourceFile"
                     }
                     else {
                         PrintError -message "$targetFile → $sourceFile"
@@ -125,36 +118,16 @@ function main() {
                 }
             }
             else {
-                Execute -command "cmd.exe /c mklink '$targetFile' '$sourceFile'" -message "$targetFile → $sourceFile"
+                New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
+                PrintResult -success $? -message "$targetFile → $sourceFile"
             }
         }
     }
 }
 
-if ((GetOs) -ne "windows") {
+if (!$IsWindows) {
     PrintError -message "Please run on Windows."
     exit 1
-}
-
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-if (!$currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    $myfunction = $MyInvocation.InvocationName
-    $cd = (Get-Location).Path
-    $commands = "Set-Location $cd; $myfunction; Pause"
-    $bytes = [System.Text.Encoding]::Unicode.GetBytes($commands)
-    $encode = [Convert]::ToBase64String($bytes)
-    $argumentList = "-NoProfile", "-ExecutionPolicy RemoteSigned", "-EncodedCommand", $encode
-
-    Write-Warning "Detected you are not runnning with Admin Priviledge."
-    $proceed = Read-Host "Required elevated priviledge to make symlink on current Windows. Do you proceed? (y/n)"
-    if ($proceed -ceq "y") {
-        $p = Start-Process -Verb RunAs powershell.exe -ArgumentList $argumentList -Wait -PassThru
-        exit $p.ExitCode
-    }
-    else {
-        Write-Host "Cancel evelated."
-        exit 1
-    }
 }
 
 main

@@ -1,0 +1,38 @@
+[credential]
+    helper = manager
+[user]
+    name = guricerin
+    email = gurizumi@gmail.com
+[core]
+    editor = vim
+    quotepath = false
+    # windows only
+    autocrlf = true
+    symlinks = true
+    filemode = false
+    longpaths = true
+    ignorecase = false
+[color]
+    ui = auto
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[color "diff"]
+    meta = yellow bold
+    commit = green bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+    newMoved = cyan
+    oldMoved = blue
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = "red bold 52"
+    newNormal = "green bold"
+    newHighlight = "green bold 22"
+[color "branch"]
+    current = green reverse
+    local = yellow
+    remote = green

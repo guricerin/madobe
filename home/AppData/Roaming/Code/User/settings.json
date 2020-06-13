@@ -1,36 +1,22 @@
 {
-    "go.toolsEnvVars": {
-        "GO111MODULE": "on"
-    },
-    "go.formatTool": "goimports",
-    "[terraform]": {
-        "editor.formatOnSave": true,
-        "files.insertFinalNewline": true,
-    },
-    "[json]": {
-        "editor.tabSize": 2,
-        "files.insertFinalNewline": true,
-    },
-    "[yaml]": {
-        "editor.tabSize": 2,
-        "files.insertFinalNewline": true,
-    },
-    "[yml]": {
-        "editor.tabSize": 2,
-        "files.insertFinalNewline": true,
-    },
-    "breadcrumbs.enabled": true,
+    "editor.renderWhitespace": "boundary",
+    "editor.wordWrap": "on",
+    "editor.fontFamily": "Cica",
+    "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.fontFamily": "'DejaVu Sans Mono - Bront', Consolas, 'Courier New', monospace",
-    "explorer.confirmDragAndDrop": false,
-    "git.enableSmartCommit": true,
-    "terminal.integrated.rendererType": "dom",
+    "files.autoGuessEncoding": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "window.title": "${dirty}${activeEditorLong}${separator}${rootName}",
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "vim.easymotion": true,
+    "vim.visualstar": true,
+    "vim.useCtrlKeys": true,
+    "vim.ignorecase": true,
+    "vim.incsearch": true,
     "window.zoomLevel": 0,
-    "go.useLanguageServer": true,
-    "terraform.languageServer": {
-        "external": true,
-        "args": [
-            "serve"
-        ]
-    },
+    "FSharp.showExplorerOnStartup": false,
+    "FSharp.smartIndent": true,
+    "FSharp.useSdkScripts": true,
+    "markdown-preview-enhanced.mermaidTheme": "default",
 }
