@@ -1,5 +1,5 @@
 # Developer mode on Windows10 can avoid admin elevate issue.
-
+#requires -version 7
 Set-StrictMode -Version Latest
 
 function AnswerIsYes($answer) {
@@ -9,11 +9,6 @@ function AskConfirmation($message) {
     PrintQuestion -message "$message (y/n) "
     $result = Read-Host
     return $result
-}
-
-function Execute($command, $message) {
-    Invoke-Expression -Command "$command" > $null
-    PrintResult -success $? -message $message
 }
 
 function PrintResult([bool]$success, $message) {
@@ -42,14 +37,14 @@ function ReadLink($path) {
     return (Get-Item -LiteralPath $path).Target
 }
 
-Set-Variable -Name BASE_PATH -Value $PSScriptRoot -Option Constant
+Set-Variable -Name SCRIPT_ROOT -Value $PSScriptRoot -Option Constant
 
 function MakeSymlinkPath($path) {
-    return $path.Replace("/home", "").Replace("\home", "").Replace($BASE_PATH, $env:UserProfile)
+    return $path.Replace("/home", "").Replace("\home", "").Replace($SCRIPT_ROOT, $env:UserProfile)
 }
 
 function main() {
-    $dotfiles_home = "$BASE_PATH\home"
+    $dotfiles_home = "$SCRIPT_ROOT\home"
 
     # dotfiles
     Get-ChildItem -LiteralPath $dotfiles_home -File -Filter ".*" -Force |
@@ -60,7 +55,7 @@ function main() {
             if ((ReadLink -path $targetFile) -ne $sourceFile) {
                 $answer = AskConfirmation -message "'$targetFile' already exists, do you want to overwrite it?"
                 if (AnswerIsYes -answer $answer) {
-                    Remove-Item -LiteralPath "$targetFile" -Force > $null
+                    Rename-Item -LiteralPath "$targetFile" -NewName "${targetFile}.bak" -Force > $null
                     New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
                     PrintResult -success $? -message "$targetFile → $sourceFile"
                 }
@@ -105,7 +100,7 @@ function main() {
                 if ((ReadLink -path "$targetFile") -ne $sourceFile) {
                     $answer = AskConfirmation -message "'$targetFile' already exists, do you want to overwrite it?"
                     if (AnswerIsYes -answer $answer) {
-                        Remove-Item -LiteralPath "$targetFile" -Force > $null
+                        Rename-Item -LiteralPath "$targetFile" -NewName "${targetFile}.bak" -Force > $null
                         New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
                         PrintResult -success $? -message "$targetFile → $sourceFile"
                     }

@@ -2,6 +2,8 @@
 # My-Util todo:baseパス指定
 . "C:\Users\guriz\Documents\PowerShell\Scripts\My-Util.ps1"
 
+Set-Alias -Name "note" -Value "C:\bin\Notepad++\notepad++.exe"
+
 # -------------------------------------------------------------------------------------------
 # posh-git
 Import-Module posh-git
