@@ -1,6 +1,6 @@
 ﻿# -------------------------------------------------------------------------------------------
 
-Set-Alias -Name "ll" -Value Get-ChildItem
+Set-Alias -Name "l" -Value Get-ChildItem
 Set-Alias -Name "note" -Value "C:\bin\Notepad++\notepad++.exe"
 
 # -------------------------------------------------------------------------------------------
