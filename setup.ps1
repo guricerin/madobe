@@ -37,16 +37,14 @@ function ReadLink($path) {
     return (Get-Item -LiteralPath $path).Target
 }
 
-Set-Variable -Name SCRIPT_ROOT -Value $PSScriptRoot -Option Constant
+Join-Path $PSScriptRoot "home" | Set-Variable -Name DOTFILES_HOME -Option Constant
 
 function MakeSymlinkPath($path) {
-    return $path.Replace($SCRIPT_ROOT, $env:UserProfile)
+    return $path.Replace($DOTFILES_HOME, $env:UserProfile)
 }
 
 function main() {
-    $dotfiles_home = "${SCRIPT_ROOT}\home"
-
-    Get-ChildItem -LiteralPath $dotfiles_home -File -Force -Recurse | 
+    Get-ChildItem -LiteralPath $DOTFILES_HOME -File -Force -Recurse | 
     ForEach-Object {
         $sourceFile = $_.FullName
         $targetFile = MakeSymlinkPath -path $sourceFile
