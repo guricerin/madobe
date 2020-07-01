@@ -6,12 +6,15 @@
 [core]
     editor = vim
     quotepath = false
+	pager = LESSCHARSET=utf-8 less
     # windows only
     autocrlf = true
     symlinks = true
     filemode = false
     longpaths = true
     ignorecase = false
+[gui]
+    encoding = utf-8
 [color]
     ui = auto
 [color "status"]
