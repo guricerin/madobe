@@ -10,8 +10,7 @@ Import-Module posh-git
 
 # プロンプトの上書き
 function Prompt() {
-    $pro = $pwd.ProviderPath
-    Write-Host($pro) -nonewline
+    Write-Host("[{0}@{1}] {2}" -f $env:UserName, $env:ComputerName, $pwd.ProviderPath) -nonewline
     Write-VcsStatus
     Write-Host("") # 改行
     return "> "
