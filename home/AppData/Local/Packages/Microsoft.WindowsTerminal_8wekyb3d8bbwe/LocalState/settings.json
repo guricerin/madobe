@@ -31,11 +31,7 @@
                 "hidden": false,
                 "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore",
-                "tabTitle": "PowerShell 7 LTS",
-                "colorScheme": "Campbell Powershell"
-                // "backgroundImage": "C:\\Users\\guriz\\images\\hihuu\\OvU5-4hd.jpeg"
-                // "useAcrylic": true,
-                // "backgroundImageOpacity": 0.9
+                "tabTitle": "PowerShell 7 LTS"
             },
             {
                 "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
@@ -43,8 +39,7 @@
                 "name": "Ubuntu-20.04",
                 "source": "Windows.Terminal.Wsl",
                 "tabTitle": "Ubuntu 20.04",
-                "startingDirectory": "//wsl$/Ubuntu-20.04/home/guri/",
-                "backgroundImage": "C:\\Users\\guriz\\images\\back\\ubuntu-orange.jpeg"
+                "startingDirectory": "//wsl$/Ubuntu-20.04/home/guri/"
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
