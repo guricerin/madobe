@@ -8,7 +8,7 @@
     quotepath = false
 	pager = LESSCHARSET=utf-8 less
     # windows only
-    autocrlf = true
+    autocrlf = input
     symlinks = true
     filemode = false
     longpaths = true
