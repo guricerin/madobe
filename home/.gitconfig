@@ -3,6 +3,8 @@
 [user]
     name = guricerin
 	email = chanbo1e9@gmail.com
+[init]
+	defaultBranch = main
 [core]
     editor = vim
     quotepath = false
