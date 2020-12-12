@@ -2,13 +2,13 @@
     helper = manager
 [user]
     name = guricerin
-	email = chanbo1e9@gmail.com
+    email = chanbo1e9@gmail.com
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [core]
     editor = vim
     quotepath = false
-	pager = LESSCHARSET=utf-8 less
+    pager = LESSCHARSET=utf-8 less
     # windows only
     autocrlf = input
     symlinks = true
@@ -42,8 +42,8 @@
     local = yellow
     remote = green
 [alias]
-	st = status
-	br = branch
-	cm = commit
+    st = status
+    br = branch
+    cm = commit
     graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
     sw = switch
