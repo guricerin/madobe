@@ -1,10 +1,18 @@
 # dotfiles-win
 
+## Requirements
+
+- sudo
+
+```pwsh
+$ scoop install sudo
+```
+
 ## Usage
 
 ```posh
 PS> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-PS> .\path\to\dotfiles-win\setup.ps1
+PS> sudo .\path\to\dotfiles-win\setup.ps1
 ```
 
 ## Tips
