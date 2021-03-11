@@ -18,10 +18,6 @@ function gs() {
 }
 
 # -------------------------------------------------------------------------------------------
-## posh-git
-Import-Module posh-git
-
-$GitPromptSettings.DefaultPromptPrefix = "[${env:UserName}@${env:ComputerName}] "
-$GitPromptSettings.DefaultPromptSuffix = "`n> "
-
-# -------------------------------------------------------------------------------------------
+## starship
+# add the end of this file
+Invoke-Expression (&starship init powershell)
