@@ -1,5 +1,5 @@
 [credential]
-    helper = manager
+    helper = manager.core
 [user]
     name = guricerin
     email = chanbo1e9@gmail.com
