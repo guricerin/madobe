@@ -21,8 +21,8 @@
         "defaults": {
             // Put settings here that you want to apply to all profiles.
             "cursorShape": "filledBox",
-            "fontFace": "Cica",
-            "fontSize": 12,
+            "fontFace": "HackGen35Nerd",
+            "fontSize": 11,
             "hidden": false
         },
         "list": [
