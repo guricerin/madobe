@@ -14,3 +14,6 @@ style_red = "red bold"
 format = "[$user]($style)"
 show_always = true
 disabled = false
+
+[git_branch]
+style = "#ff9000 bold"
