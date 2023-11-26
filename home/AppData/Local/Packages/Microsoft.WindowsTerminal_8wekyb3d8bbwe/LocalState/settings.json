@@ -43,6 +43,12 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "newTabMenu": 
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
     "profiles": 
     {
         "defaults": 
@@ -51,7 +57,7 @@
             "font": 
             {
                 "face": "HackGen35Nerd",
-                "size": 11
+                "size": 11.0
             },
             "hidden": false
         },
@@ -65,12 +71,10 @@
                 "tabTitle": "PowerShell 7 LTS"
             },
             {
-                "guid": "{07b52e3e-de2c-5db4-bd2d-ba144ed6c273}",
+                "guid": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
                 "hidden": false,
-                "name": "Ubuntu-20.04",
-                "source": "Windows.Terminal.Wsl",
-                "startingDirectory": "\\\\wsl$\\Ubuntu-20.04\\home\\guri",
-                "tabTitle": "Ubuntu 20.04"
+                "name": "Ubuntu-22.04",
+                "source": "Windows.Terminal.Wsl"
             },
             {
                 "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
@@ -88,16 +92,22 @@
                 "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8"
             },
             {
-                "guid": "{a5f28ac9-fee4-58ad-ac99-a1ebf8c215d7}",
+                "guid": "{32468fec-8d1d-5db1-bd80-f5935e22e86a}",
                 "hidden": false,
-                "name": "Developer Command Prompt for VS 2019",
+                "name": "Developer Command Prompt for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{70fe9738-44b0-5288-bf5c-15858ea43fcf}",
+                "guid": "{f2d1768c-adcc-5749-8d33-455f15e1a3ee}",
                 "hidden": false,
-                "name": "Developer PowerShell for VS 2019",
+                "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{16208362-94fc-5b1f-a491-5b2624d5ab56}",
+                "hidden": false,
+                "name": "Visual Studio Debug Console",
+                "source": "VSDebugConsole"
             }
         ]
     },
@@ -288,6 +298,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-22.04-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -310,5 +343,6 @@
             "white": "#C0C0C0",
             "yellow": "#808000"
         }
-    ]
+    ],
+    "themes": []
 }
