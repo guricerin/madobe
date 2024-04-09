@@ -12,20 +12,11 @@
     "vim.useCtrlKeys": true,
     "vim.ignorecase": true,
     "vim.incsearch": true,
-    "FSharp.showExplorerOnStartup": false,
-    "FSharp.smartIndent": true,
-    "FSharp.useSdkScripts": true,
     "markdown-preview-enhanced.mermaidTheme": "default",
     "editor.fontLigatures": false,
-    "redhat.telemetry.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
-    "svelte.enable-ts-plugin": true,
-    "svelte.plugin.svelte.note-new-transformation": false,
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "[python]": {
-        "editor.formatOnType": true
-    },
     "editor.inlayHints.enabled": "off",
     "workbench.colorCustomizations": {
         "editor.lineHighlightBackground": "#1073cf2d",
@@ -37,7 +28,6 @@
     "git.openRepositoryInParentFolders": "never",
     "window.zoomLevel": 1,
     "files.insertFinalNewline": true,
-    "azureFunctions.showProjectWarning": false,
-    "go.toolsManagement.autoUpdate": true,
     "editor.inlineSuggest.enabled": true,
+    "rust-analyzer.check.command": "clippy",
 }
