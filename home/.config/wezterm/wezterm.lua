@@ -8,16 +8,25 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
--- 効いてなさげ
 if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
-  default_prog = { 'pwsh.exe', '-NoLogo' }
-  config.font_size = 1
+  config.default_prog = { 'pwsh.exe', '-NoLogo' }
+  config.launch_menu = {
+    {
+      label = 'PowerShell',
+      args = { 'pwsh.exe', '-NoLogo' },
+    },
+  }
+else
+  config.default_prog = { 'zsh', '--login' }
+  config.launch_menu = {
+    {
+      label = 'Zsh',
+      args = { 'zsh', '--login' },
+    },
+  }
 end
 
-wezterm.on('window-config-reloaded', function(window, pane)
-  wezterm.log_info 'the config was reloaded for this window!'
-end)
-
+-- keys
 config.leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.keys = keybinds.keys
 config.key_tables = keybinds.key_tables
@@ -58,17 +67,6 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
     { Text = ' ' .. title .. ' ' },
   }
 end)
-
-config.launch_menu = {
-  {
-    label = 'zsh',
-    args = { 'zsh', '--login' },
-  },
-  {
-    label = 'ls',
-    args = { 'ls', '-alF' },
-  },
-}
 
 -- and finally, return the configuration to wezterm
 return config

@@ -3,13 +3,13 @@ local act = wezterm.action
 
 return {
   keys = {
-    { key = 'r', mods = 'SHIFT|CTRL', action = act.ReloadConfiguration },
-    { key = 'r', mods = 'SUPER', action = act.ReloadConfiguration },
     { key = 't', mods = 'SHIFT|CTRL', action = act.SpawnTab 'CurrentPaneDomain' },
     { key = 't', mods = 'SUPER', action = act.SpawnTab 'CurrentPaneDomain' },
     { key = 'w', mods = 'SHIFT|CTRL', action = act.CloseCurrentTab{ confirm = true } },
     { key = 'w', mods = 'SUPER', action = act.CloseCurrentTab{ confirm = true } },
 
+    { key = 'r', mods = 'LEADER', action = act.ReloadConfiguration },
+    { key = 't', mods = 'LEADER', action = act.ShowLauncher },
     { key = '-', mods = 'LEADER', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
     { key = '|', mods = 'LEADER', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
     { key = 'x', mods = 'LEADER', action = wezterm.action.CloseCurrentPane { confirm = true }, },
