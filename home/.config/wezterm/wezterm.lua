@@ -27,7 +27,10 @@ else
 end
 
 -- Ctrl + c でのコピーや Ctrl + v でのペーストを有効にする
-config.swallow_mouse_click_on_pane_focau = true
+config.swallow_mouse_click_on_window_focus = true
+
+-- カーソルを点滅させる
+config.default_cursor_style = 'BlinkingBlock'
 
 -- keys
 config.leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 }
