@@ -3,81 +3,58 @@
 Set-StrictMode -Version Latest
 
 function AnswerIsYes($answer) {
-    return $answer -eq "y"
-}
-function AskConfirmation($message) {
-    PrintQuestion -message "$message (y/n) "
-    $result = Read-Host
-    return $result
+  return $answer -eq "y"
 }
 
 function PrintResult([bool]$success, $message) {
-    if ($success) {
-        PrintSuccess -message $message
-    }
-    else {
-        PrintError -message $message
-        exit 1
-    }
+  if ($success) {
+    PrintSuccess -message $message
+  }
+  else {
+    PrintError -message $message
+    exit 1
+  }
 }
 
 function PrintError($message) {
-    Write-Host "  [x] $message" -ForegroundColor Red
-}
-
-function PrintQuestion($message) {
-    Write-Host "  [?] $message" -ForegroundColor Yellow -NoNewline
+  Write-Host "  [x] $message" -ForegroundColor Red
 }
 
 function PrintSuccess($message) {
-    Write-Host "  [o] $message" -ForegroundColor Green
+  Write-Host "  [o] $message" -ForegroundColor Green
 }
 
 function ReadLink($path) {
-    return (Get-Item -LiteralPath $path).Target
+  return (Get-Item -LiteralPath $path).Target
 }
 
 Join-Path $PSScriptRoot "home" | Set-Variable -Name DOTFILES_HOME -Option Constant
 
-function MakeSymlinkPath($path) {
-    return $path.Replace($DOTFILES_HOME, $env:UserProfile)
+function BuildSymlinkPath($path) {
+  # e.g. C:\Users\user\dotfiles\home\.vimrc → C:\Users\user\.vimrc
+  return $path.Replace($DOTFILES_HOME, $env:UserProfile)
 }
 
 function main() {
-    Get-ChildItem -LiteralPath $DOTFILES_HOME -File -Force -Recurse | 
-    ForEach-Object {
-        $sourceFile = $_.FullName
-        $targetFile = MakeSymlinkPath -path $sourceFile
-        $parent = Split-Path -Path $targetFile -Parent
-        if (!(Test-Path -Path $parent)) {
-            mkdir -Path "$parent" -Force > $null
-        }
-        if (Test-Path -Path $targetFile) {
-            if ((ReadLink -path "$targetFile") -ne $sourceFile) {
-                $answer = AskConfirmation -message "'$targetFile' already exists, do you want to overwrite it?"
-                if (AnswerIsYes -answer $answer) {
-                    Rename-Item -LiteralPath "$targetFile" -NewName "${targetFile}.bak" -Force > $null
-                    New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
-                    PrintResult -success $? -message "$targetFile → $sourceFile"
-                }
-                else {
-                    PrintError -message "$targetFile → $sourceFile"
-                }
-            }
-            else {
-                PrintSuccess -message "$targetFile → $sourceFile"
-            }
-        }
-        else {
-            New-Item -ItemType SymbolicLink -Path "$targetFile" -Value "$sourceFile" > $null
-            PrintResult -success $? -message "$targetFile → $sourceFile"
-        }
+  Get-ChildItem -LiteralPath $DOTFILES_HOME -File -Force -Recurse |
+  ForEach-Object {
+    $src = $_.FullName
+    $dst = BuildSymlinkPath -path $src
+    $parent = Split-Path -Path $dst -Parent
+    if (!(Test-Path -Path $parent)) {
+      mkdir -Path "$parent" -Force > $null
     }
+    if (Test-Path -Path $dst) {
+      Remove-Item -LiteralPath $dst -Force > $null
+    }
+    New-Item -ItemType SymbolicLink -Path "$dst" -Value "$src" > $null
+    PrintResult -success $? -message "$dst → $src"
+  }
 }
 
 if (!$IsWindows) {
-    PrintError -message "Please run on Windows."
-    exit 1
+  PrintError -message "Please run on Windows."
+  exit 1
 }
 
 main

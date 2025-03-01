@@ -1,6 +1,9 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
+
+-- カスタムモジュール
 local keybinds = require 'keybinds'
+local mousebinds = require 'mousebinds'
 require 'status'
 
 -- This will hold the configuration.
@@ -28,6 +31,8 @@ end
 
 -- Ctrl + c でのコピーや Ctrl + v でのペーストを有効にする
 config.swallow_mouse_click_on_window_focus = true
+
+config.mouse_bindings = mousebinds
 
 -- カーソルを点滅させる
 config.default_cursor_style = 'BlinkingBlock'
@@ -67,7 +72,7 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
   local cwd = basename(pane.current_working_dir.file_path)
   local process_name = basename(pane.foreground_process_name)
 
-  -- 例) 1: project_dir | zsh
+  -- e.g. 1: project_dir | zsh
   local title = index .. ': '  .. cwd .. ' | ' .. process_name
   return {
     { Text = ' ' .. title .. ' ' },
