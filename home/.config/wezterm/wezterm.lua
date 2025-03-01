@@ -26,6 +26,9 @@ else
   }
 end
 
+-- Ctrl + c でのコピーや Ctrl + v でのペーストを有効にする
+config.swallow_mouse_click_on_pane_focau = true
+
 -- keys
 config.leader = { key = 's', mods = 'CTRL', timeout_milliseconds = 1000 }
 config.keys = keybinds.keys
