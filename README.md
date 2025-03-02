@@ -1,14 +1,22 @@
 # madobe
 
-## Requirements
+## Before Setup
 
-- sudo
+### Install depends
 
 ```pwsh
-$ scoop install sudo
+winget install -e --id Microsoft.PowerShell # PowerShell Core
+winget install -e --id Git.Git
 ```
 
-## Usage
+### Clone this repo
+
+```pwsh
+cd $HOME
+git clone git@github.com:guricerin/madobe.git
+```
+
+## Setup
 
 ### before running script
 
