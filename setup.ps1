@@ -1,10 +1,9 @@
 # Developer mode on Windows10 can avoid admin elevate issue.
 #requires -version 7
+Param(
+  [switch]$apply
+)
 Set-StrictMode -Version Latest
-
-function AnswerIsYes($answer) {
-  return $answer -eq "y"
-}
 
 function PrintResult([bool]$success, $message) {
   if ($success) {
@@ -24,19 +23,25 @@ function PrintSuccess($message) {
   Write-Host "  [o] $message" -ForegroundColor Green
 }
 
-function ReadLink($path) {
-  return (Get-Item -LiteralPath $path).Target
+function PrintExpected($message) {
+  Write-Host "  [?] $message" -ForegroundColor Blue
 }
 
 Join-Path $PSScriptRoot "home" | Set-Variable -Name DOTFILES_HOME -Option Constant
 
+function DotFilePaths() {
+  return Get-ChildItem -LiteralPath $DOTFILES_HOME -File -Force -Recurse
+}
+
 function BuildSymlinkPath($path) {
-  # e.g. C:\Users\user\dotfiles\home\.vimrc → C:\Users\user\.vimrc
+  # e.g. C:\Users\user\madobe\home\.vimrc → C:\Users\user\.vimrc
   return $path.Replace($DOTFILES_HOME, $env:UserProfile)
 }
 
-function main() {
-  Get-ChildItem -LiteralPath $DOTFILES_HOME -File -Force -Recurse |
+function Apply() {
+  Write-Host "apply`n"
+
+  DotFilePaths |
   ForEach-Object {
     $src = $_.FullName
     $dst = BuildSymlinkPath -path $src
@@ -52,9 +57,29 @@ function main() {
   }
 }
 
-if (!$IsWindows) {
-  PrintError -message "Please run on Windows."
-  exit 1
+function DryRun() {
+  Write-Host "dry-run`n"
+
+  DotFilePaths |
+  ForEach-Object {
+    $src = $_.FullName
+    $dst = BuildSymlinkPath -path $src
+    PrintExpected -message "$dst -> $src"
+  }
 }
 
-main
+function Main() {
+  if (!$IsWindows) {
+    PrintError -message "Please run on Windows."
+    exit 1
+  }
+
+  if ($apply) {
+    Apply
+  }
+  else {
+    DryRun
+  }
+}
+
+Main
