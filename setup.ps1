@@ -48,7 +48,7 @@ function main() {
       Remove-Item -LiteralPath $dst -Force > $null
     }
     New-Item -ItemType SymbolicLink -Path "$dst" -Value "$src" > $null
-    PrintResult -success $? -message "$dst → $src"
+    PrintResult -success $? -message "$dst -> $src"
   }
 }
 
