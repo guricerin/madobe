@@ -1,5 +1,7 @@
 # madobe
 
+madobe (窓辺) is dotfiles for windows.  
+
 ## Before Setup
 
 ### Install depends
@@ -7,6 +9,15 @@
 ```pwsh
 winget install -e --id Microsoft.PowerShell # PowerShell Core
 winget install -e --id Git.Git
+```
+
+### SSH setting of GitHub
+
+```sh
+mkdir -p ~/.ssh/keys/github
+ssh-keygen -t ed25519 -f ~/.ssh/keys/github/id_ed25519
+cat ~/.ssh/keys/github/id_ed25519.pub
+# paste pub-key to GitHub -> Settings -> SSH and GPG keys -> SSH keys
 ```
 
 ### Clone this repo
@@ -20,22 +31,24 @@ git clone git@github.com:guricerin/madobe.git
 
 ### before running script
 
-```posh
-PS> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+```pwsh
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 ```
 
 - Gitでクローンしたファイルはローカルスクリプトとして認識されるので、RemoteSignedで実行可能
 
 ### dry-run
 
-```posh
-PS> .\path\to\madobe\setup.ps1
+```pwsh
+.\path\to\madobe\setup.ps1
 ```
 
 ### apply
 
-```posh
-PS> sudo .\path\to\madobe\setup.ps1 -apply
+- enable developer mode (`System` -> `For developers` -> `Developer Mode` toggle on)
+
+```pwsh
+.\path\to\madobe\setup.ps1 -apply
 ```
 
 ## References
