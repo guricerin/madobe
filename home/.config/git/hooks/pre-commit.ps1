@@ -1,3 +1,3 @@
 #!powershell
 
-Write-Host "Running pre-commit hook"
+Assert.Fail("intentionally failing");
