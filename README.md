@@ -51,18 +51,19 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 .\path\to\madobe\setup.ps1 -apply
 ```
 
+### disable running .ps1 scripts (except $profile)
+
+```pwsh
+Set-ExecutionPolicy Restricted -Scope CurrentUser -Force
+```
+
 ## After Setup
 
 ### Install tools
 
 ```pwsh
 scoop install ghq
-```
-
-### Disable running .ps1 scripts (except $profile)
-
-```pwsh
-Set-ExecutionPolicy Restricted -Scope CurrentUser -Force
+winget install -e --id GitHub.cli
 ```
 
 ## References
