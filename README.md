@@ -1,14 +1,21 @@
 # madobe
 
-madobe (窓辺) is dotfiles for windows.  
+madobe（窓辺） is dotfiles for windows.  
 
 ## Before Setup
+
+### enable running `.ps1` scripts
+
+```pwsh
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+```
+
+- Gitでクローンしたファイルはローカルスクリプトとして認識されるので、RemoteSignedで実行可能
 
 ### Install depends
 
 ```pwsh
-winget install -e --id Microsoft.PowerShell # PowerShell Core
-winget install -e --id Git.Git
+.\path\to\madobe\scripts\depends.ps1
 ```
 
 ### SSH setting of GitHub
@@ -29,14 +36,6 @@ git clone git@github.com:guricerin/madobe.git
 
 ## Setup
 
-### enable running .ps1 scripts
-
-```pwsh
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
-```
-
-- Gitでクローンしたファイルはローカルスクリプトとして認識されるので、RemoteSignedで実行可能
-
 ### dry-run
 
 ```pwsh
@@ -51,19 +50,18 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 .\path\to\madobe\setup.ps1 -apply
 ```
 
-### disable running .ps1 scripts (except $profile)
-
-```pwsh
-Set-ExecutionPolicy Restricted -Scope CurrentUser -Force
-```
-
 ## After Setup
 
 ### Install tools
 
 ```pwsh
-scoop install ghq
-winget install -e --id GitHub.cli
+.\path\to\madobe\scripts\tools.ps1
+```
+
+### disable running `.ps1` scripts (except `$profile`)
+
+```pwsh
+Set-ExecutionPolicy Restricted -Scope CurrentUser -Force
 ```
 
 ## References
