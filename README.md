@@ -29,7 +29,7 @@ git clone git@github.com:guricerin/madobe.git
 
 ## Setup
 
-### before running script
+### enable running .ps1 script
 
 ```pwsh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
@@ -49,6 +49,20 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 ```pwsh
 .\path\to\madobe\setup.ps1 -apply
+```
+
+## After Setup
+
+### Install tools
+
+```pwsh
+scoop install ghq
+```
+
+### Disable running .ps1 scripts (except $profile)
+
+```pwsh
+Set-ExecutionPolicy Restricted -Scope CurrentUser -Force
 ```
 
 ## References
