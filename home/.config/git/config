@@ -7,6 +7,7 @@
 	defaultBranch = main
 [core]
 	editor = vim
+	hooksPath = ~/.config/git/hooks
 	quotepath = false
 	pager = LESSCHARSET=utf-8 less
 	# windows only
