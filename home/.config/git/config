@@ -49,3 +49,5 @@
 	recurse = true
 [pull]
 	rebase = false
+[ghq]
+	root = ~/source
