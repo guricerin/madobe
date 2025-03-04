@@ -29,7 +29,7 @@ git clone git@github.com:guricerin/madobe.git
 
 ## Setup
 
-### enable running .ps1 script
+### enable running .ps1 scripts
 
 ```pwsh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
