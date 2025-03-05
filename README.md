@@ -20,10 +20,8 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 ### SSH setting of GitHub
 
-```sh
-mkdir -p ~/.ssh/keys/github
-ssh-keygen -t ed25519 -f ~/.ssh/keys/github/id_ed25519
-cat ~/.ssh/keys/github/id_ed25519.pub
+```pwsh
+.\path\to\madobe\scripts\ssh-keygen-github.ps1
 # paste pub-key to GitHub -> Settings -> SSH and GPG keys -> SSH keys
 ```
 
