@@ -58,6 +58,10 @@ git clone git@github.com:guricerin/madobe.git
 .\path\to\madobe\scripts\tools.ps1
 ```
 
+### Install bin from GitHub release page
+
+- [gitleaks](https://github.com/gitleaks/gitleaks/releases)
+
 ### disable running `.ps1` scripts (except `$profile`)
 
 ```pwsh

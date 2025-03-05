@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+gitleaks_maybe() {
+  if command -v gitleaks > /dev/null; then
+    gitleaks git --pre-commit --redact --staged --verbose
+  else
+    echo '`gitleaks` command not found'
+  fi
+}
+
+gitleaks_maybe
