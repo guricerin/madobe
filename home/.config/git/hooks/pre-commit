@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-echo "pre-commit args: $@"
-echo "pwd: $pwd"
-
 gitleaks_maybe() {
   if command -v gitleaks > /dev/null; then
     gitleaks git --pre-commit --redact --staged --verbose
   else
-    echo "gitleaks not found"
+    echo '`gitleaks` command not found'
   fi
 }
+
 gitleaks_maybe
