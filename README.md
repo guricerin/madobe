@@ -4,6 +4,23 @@ madobe（窓辺） is dotfiles for windows.
 
 ## Before Setup
 
+### SSH setting of GitHub
+
+```pwsh
+$p = "~/.ssh/keys/github"
+mkdir -p $p
+ssh-keygen -t ed25519
+Move-Item ~/.ssh/id_ed25519* $p/
+Get-Content $p/id_ed25519.pub | clip
+# paste pub-key to GitHub -> Settings -> SSH and GPG keys -> SSH keys
+```
+
+### Clone this repo
+
+```pwsh
+git clone git@github.com:guricerin/madobe.git
+```
+
 ### enable running `.ps1` scripts
 
 ```pwsh
@@ -16,20 +33,6 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 
 ```pwsh
 .\path\to\madobe\scripts\depends.ps1
-```
-
-### SSH setting of GitHub
-
-```pwsh
-.\path\to\madobe\scripts\ssh-keygen-github.ps1
-# paste pub-key to GitHub -> Settings -> SSH and GPG keys -> SSH keys
-```
-
-### Clone this repo
-
-```pwsh
-cd $HOME
-git clone git@github.com:guricerin/madobe.git
 ```
 
 ## Setup
