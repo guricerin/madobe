@@ -60,12 +60,6 @@ git clone git@github.com:guricerin/madobe.git
 
 - [gitleaks](https://github.com/gitleaks/gitleaks/releases)
 
-### disable running `.ps1` scripts (except `$profile`)
-
-```pwsh
-Set-ExecutionPolicy Restricted -Scope CurrentUser -Force
-```
-
 ## References
 
 - [PowerShell実践ガイドブック クロスプラットフォーム対応の次世代シェルを徹底解説](https://book.mynavi.jp/ec/products/detail/id=90597)
