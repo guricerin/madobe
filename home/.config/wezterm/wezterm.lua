@@ -19,14 +19,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
       args = { 'pwsh.exe', '-NoLogo' },
     },
   }
-else
-  config.default_prog = { 'zsh', '--login' }
-  config.launch_menu = {
-    {
-      label = 'Zsh',
-      args = { 'zsh', '--login' },
-    },
-  }
+-- unix系の場合は設定されているログインシェルを起動
 end
 
 -- Ctrl + c でのコピーや Ctrl + v でのペーストを有効にする
