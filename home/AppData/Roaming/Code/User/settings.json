@@ -31,4 +31,5 @@
     "editor.inlineSuggest.enabled": true,
     "rust-analyzer.check.command": "clippy",
     "editor.fontSize": 15,
+    "github.copilot.nextEditSuggestions.enabled": true,
 }
