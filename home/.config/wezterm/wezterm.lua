@@ -19,7 +19,7 @@ if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
       args = { 'pwsh.exe', '-NoLogo' },
     },
   }
--- unix系の場合は設定されているログインシェルを起動
+  -- unix系の場合は設定されているログインシェルを起動
 end
 
 -- Ctrl + c でのコピーや Ctrl + v でのペーストを有効にする
@@ -66,10 +66,14 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
   local process_name = basename(pane.foreground_process_name)
 
   -- e.g. 1: project_dir | zsh
-  local title = index .. ': '  .. cwd .. ' | ' .. process_name
+  local title = index .. ': ' .. cwd .. ' | ' .. process_name
   return {
     { Text = ' ' .. title .. ' ' },
   }
+end)
+
+wezterm.on('bell', function(window, pane)
+  window:toast_notification('Claude Code', 'Task completed', nil, 4000)
 end)
 
 -- and finally, return the configuration to wezterm
