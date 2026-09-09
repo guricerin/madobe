@@ -17,9 +17,6 @@ return {
     { key = 'j',     mods = 'LEADER',     action = act.ActivatePaneDirection 'Down' },
     { key = 'k',     mods = 'LEADER',     action = act.ActivatePaneDirection 'Up' },
     { key = 'l',     mods = 'LEADER',     action = act.ActivatePaneDirection 'Right' },
-
-    -- for claude-code
-    { key = 'Enter', mods = 'SHIFT',      action = act.SendString("\\\n") },
   },
 
   key_tables = {
