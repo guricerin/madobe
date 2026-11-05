@@ -67,10 +67,9 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
   local index = tab.tab_index + 1
   local pane = tab.active_pane
   local cwd = basename(pane.current_working_dir.file_path)
-  local process_name = basename(pane.foreground_process_name)
 
-  -- e.g. 1: project_dir | zsh
-  local title = index .. ': ' .. cwd .. ' | ' .. process_name
+  -- e.g. 1: project_dir
+  local title = index .. ': ' .. cwd
 
   -- タブを開いたら目立たせるのをやめる
   local key = tostring(tab.tab_id)
