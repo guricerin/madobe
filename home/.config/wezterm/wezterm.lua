@@ -59,6 +59,10 @@ function basename(s)
   return string.gsub(s, '(.*[/\\])(.*)', '%2')
 end
 
+-- ベルが鳴ってから、まだ開いていないタブの tab_id
+-- イベントごとに Lua の状態が分かれることがあるので、ローカル変数ではなく wezterm.GLOBAL に置く
+wezterm.GLOBAL.bell_tabs = wezterm.GLOBAL.bell_tabs or {}
+
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
   local index = tab.tab_index + 1
   local pane = tab.active_pane
@@ -67,13 +71,31 @@ wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_wid
 
   -- e.g. 1: project_dir | zsh
   local title = index .. ': ' .. cwd .. ' | ' .. process_name
+
+  -- タブを開いたら目立たせるのをやめる
+  local key = tostring(tab.tab_id)
+  if tab.is_active then
+    wezterm.GLOBAL.bell_tabs[key] = nil
+  end
+
+  if wezterm.GLOBAL.bell_tabs[key] then
+    return {
+      { Background = { Color = '#fab387' } },
+      { Foreground = { Color = '#1e1e2e' } },
+      { Text = ' ' .. wezterm.nerdfonts.md_bell_ring .. ' ' .. title .. ' ' },
+    }
+  end
   return {
     { Text = ' ' .. title .. ' ' },
   }
 end)
 
+-- Claude Code のフック（Notification・Stop）がベルを鳴らす
 wezterm.on('bell', function(window, pane)
-  window:toast_notification('Claude Code', 'Task completed', nil, 4000)
+  wezterm.GLOBAL.bell_tabs[tostring(pane:tab():tab_id())] = true
+  -- ベルだけではタブが描き直されないので、右のステータスを変えて描き直させる
+  -- （次の update-status で status.lua が元に戻す）
+  window:set_right_status(' ')
 end)
 
 -- and finally, return the configuration to wezterm
