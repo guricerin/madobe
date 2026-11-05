@@ -66,11 +66,11 @@ wezterm.GLOBAL.bell_tabs = wezterm.GLOBAL.bell_tabs or {}
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
   local index = tab.tab_index + 1
   local pane = tab.active_pane
-  local cwd = basename(pane.current_working_dir.file_path)
-  local process_name = basename(pane.foreground_process_name)
+  -- シェルが OSC 7 を送っていないなどで取れないことがある
+  local cwd = pane.current_working_dir and basename(pane.current_working_dir.file_path) or '?'
 
-  -- e.g. 1: project_dir | zsh
-  local title = index .. ': ' .. cwd .. ' | ' .. process_name
+  -- e.g. 1: project_dir
+  local title = index .. ': ' .. cwd
 
   -- タブを開いたら目立たせるのをやめる
   local key = tostring(tab.tab_id)

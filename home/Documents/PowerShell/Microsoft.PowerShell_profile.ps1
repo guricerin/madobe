@@ -20,6 +20,20 @@ function gs() {
 }
 
 # -------------------------------------------------------------------------------------------
+## OSC 7
+# カレントディレクトリを OSC 7 で端末に知らせる（WezTerm のタブ名に使う）
+# PowerShell の cd はプロセスのカレントディレクトリを変えないため、WezTerm からは見えない
+# https://starship.rs/advanced-config/#custom-pre-prompt-and-pre-execution-commands-in-powershell
+function Invoke-Starship-PreCommand {
+    $loc = $executionContext.SessionState.Path.CurrentLocation
+    if ($loc.Provider.Name -eq "FileSystem") {
+        $esc = [char]27
+        $path = $loc.ProviderPath -replace "\\", "/"
+        $host.ui.Write("$esc]7;file://${env:COMPUTERNAME}/${path}$esc\")
+    }
+}
+
+# -------------------------------------------------------------------------------------------
 ## starship
 # add the end of this file
 Invoke-Expression (&starship init powershell)
